@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown</title>
+  <style>
+    #countdown {
+      font-size: 60px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: "Digital", Arial, sans-serif;
+      color: white; /* Set the countdown color to white */
+      background: none; /* Remove the background */
+    }
+    body {
+      margin: 0; /* Remove default margin */
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown"></div>
+
+  <script>
+    // Function to calculate and update the countdown
+    function updateCountdown() {
+      var now = new Date();
+      var sunday = new Date();
+
+      // Set the target time to midnight on the next Sunday
+      sunday.setDate(sunday.getDate() + ((7 - sunday.getDay() + 7) % 7));
+      sunday.setHours(0);
+      sunday.setMinutes(0);
+      sunday.setSeconds(0);
+      sunday.setMilliseconds(0);
+
+      // Calculate the remaining time
+      var remainingTime = sunday - now;
+
+      // Calculate days, hours, minutes
+      var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+
+      // Display the countdown
+      var countdownElement = document.getElementById("countdown");
+
+      // Format the countdown text
+      var countdownText = "";
+      if (days > 0) {
+        countdownText += days + " DAYS ";
+      }
+      countdownText += hours + " HRS " + minutes + " MINS";
+
+      // Update the countdown element
+      countdownElement.innerHTML = countdownText;
+
+      // Call the updateCountdown function again on the next frame
+      requestAnimationFrame(updateCountdown);
+    }
+
+    // Start the countdown
+    updateCountdown();
+  </script>
+</body>
+</html>
