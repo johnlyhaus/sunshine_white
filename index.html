@@ -66,6 +66,9 @@ function updateCountdown() {
 
   // Calculate the remaining time in milliseconds
   var remainingTime = targetDate.getTime() - now.getTime();
+  
+  // Adjust for UTC+1 (BST)
+  remainingTime += 3600000; // Add 1 hour in milliseconds
 
   // Calculate hours and minutes
   var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
