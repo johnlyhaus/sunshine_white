@@ -60,39 +60,51 @@
 
   <script>
     // Function to calculate and update the countdown
-    function updateCountdown() {
-      var now = new Date();
-      var sunday = new Date();
+function updateCountdown() {
+  var now = new Date();
+  var targetDate = getNextSundayBST();
 
-      // Set the target time to midnight on the next Sunday
-      sunday.setDate(sunday.getDate() + ((7 - sunday.getDay() + 7) % 7));
-      sunday.setHours(0);
-      sunday.setMinutes(0);
-      sunday.setSeconds(0);
-      sunday.setMilliseconds(0);
+  // Calculate the remaining time in milliseconds
+  var remainingTime = targetDate.getTime() - now.getTime();
 
-      // Calculate the remaining time
-      var remainingTime = sunday - now;
+  // Calculate hours and minutes
+  var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
 
-      // Calculate hours and minutes
-      var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  // Display the countdown
+  var countdownElement = document.getElementById("countdown");
 
-      // Display the countdown
-      var countdownElement = document.getElementById("countdown");
+  // Format the countdown text
+  var countdownText = hours + " HRS " + minutes + " MINS";
 
-      // Format the countdown text
-      var countdownText = hours + " HRS " + minutes + " MINS";
+  // Update the countdown element
+  countdownElement.innerHTML = countdownText;
 
-      // Update the countdown element
-      countdownElement.innerHTML = countdownText;
+  // Call the updateCountdown function again on the next frame
+  requestAnimationFrame(updateCountdown);
+}
 
-      // Call the updateCountdown function again on the next frame
-      requestAnimationFrame(updateCountdown);
-    }
+// Get the next Sunday in British Summer Time (BST)
+function getNextSundayBST() {
+  var now = new Date();
+  var day = now.getUTCDay();
+  var nextSunday = new Date();
 
-    // Start the countdown
-    updateCountdown();
+  // Calculate the number of days until the next Sunday
+  var daysUntilNextSunday = (7 - day + 7) % 7;
+
+  // Set the date to the next Sunday in BST
+  nextSunday.setUTCDate(nextSunday.getUTCDate() + daysUntilNextSunday);
+  nextSunday.setUTCHours(0);
+  nextSunday.setUTCMinutes(0);
+  nextSunday.setUTCSeconds(0);
+  nextSunday.setUTCMilliseconds(0);
+
+  return nextSunday;
+}
+
+// Start the countdown
+updateCountdown();
   </script>
 </body>
 </html>
