@@ -1,9 +1,54 @@
-<!DOCTYPE html>
 <html>
 <head>
   <title>Countdown</title>
   <style>
-    /* CSS styles here */
+    #countdown-container {
+      position: relative;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    #countdown-text {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: "Digital", Arial, sans-serif;
+      color: white;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    #countdown {
+      font-size:30px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: "Digital", Arial, sans-serif;
+      color: white;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    #additional-text {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-family: "Digital", Arial, sans-serif;
+      color: white;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    body {
+      margin: 0;
+      background-image: url('heart.png');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: fixed;
+      background-size: auto;
+    }
   </style>
 </head>
 <body>
@@ -19,15 +64,15 @@
       var now = new Date();
       var sunday = new Date();
 
-      // Set the target time to midnight on the next Sunday (UTC+1)
-      sunday.setDate(sunday.getDate() + ((7 - sunday.getDay() + 7) % 7) + 1);
-      sunday.setUTCHours(0);
-      sunday.setUTCMinutes(0);
-      sunday.setUTCSeconds(0);
-      sunday.setUTCMilliseconds(0);
+      // Set the target time to midnight on the next Sunday
+      sunday.setDate(sunday.getDate() + ((7 - sunday.getDay() + 7) % 7));
+      sunday.setHours(0);
+      sunday.setMinutes(0);
+      sunday.setSeconds(0);
+      sunday.setMilliseconds(0);
 
-      // Calculate the remaining time (UTC+1)
-      var remainingTime = sunday - now + (60 * 60 * 1000);
+      // Calculate the remaining time
+      var remainingTime = sunday - now;
 
       // Calculate hours and minutes
       var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
